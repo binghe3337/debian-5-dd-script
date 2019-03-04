@@ -265,6 +265,7 @@ if [[ -z "$DIST" ]]; then
     [[ $? -eq '0' ]] && {
       isDigital="$(echo "$DIST" |grep -o '[\.0-9]\{1,\}' |sed -n '1h;1!H;$g;s/\n//g;$p' |cut -d'.' -f1)";
       [[ -n $isDigital ]] && {
+        [[ "$isDigital" == '5' ]] && DIST='lenny';
         [[ "$isDigital" == '6' ]] && DIST='squeeze';
         [[ "$isDigital" == '7' ]] && DIST='wheezy';
         [[ "$isDigital" == '8' ]] && DIST='jessie';
@@ -421,7 +422,7 @@ wget --no-check-certificate -qO '/boot/vmlinuz' "http://$DISTMirror/$DIST/os/$VE
 fi
 if [[ "$linuxdists" == 'debian' ]]; then
   if [[ "$INCFW" == '1' ]]; then
-    wget --no-check-certificate -qO '/boot/firmware.cpio.gz' "https://raw.githubusercontent.com/binghe3337/debian-6-dd-script/master/src/firmware.cpio.gz"
+    wget --no-check-certificate -qO '/boot/firmware.cpio.gz' "https://raw.githubusercontent.com/binghe3337/debian-5-dd-script/master/src/firmware.cpio.gz"
     [[ $? -ne '0' ]] && echo -ne "\033[31mError! \033[0mDownload 'firmware' for \033[33m$linuxdists\033[0m failed! \n" && exit 1
   fi
   if [[ "$ddMode" == '1' ]]; then
